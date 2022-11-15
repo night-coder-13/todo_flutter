@@ -40,10 +40,46 @@ class _HomePageState extends State<HomePage> {
     db.updateDataBase();
   }
   void deleteTask(int index){
-    setState(() {
-      db.toDoList.removeAt(index);
+    showDialog(context: context, builder: (context){
+      return DialogDelete(
+        onCancel: () => Navigator.of(context).pop() ,
+        onDelete: (){
+          setState(() {
+            db.toDoList.removeAt(index);
+          });
+          Navigator.of(context).pop();
+          db.updateDataBase();
+        },
+      );
     });
-    db.updateDataBase();
+    
+  }
+  void edit( int index ,String value){
+   
+          setState(() {
+            db.toDoList[index][0] = value;
+          });
+          Navigator.of(context).pop();
+          db.updateDataBase();
+       
+    
+  }
+  void editTask(int index){
+    showDialog(context: context, builder: (context){
+      return DialogEdit(
+        controller: _controller,
+        onCancel: () => Navigator.of(context).pop() ,
+        onSaved: (context)=> edit(index , _controller.text),
+        // onSaved: (value){
+        //   setState(() {
+        //     db.toDoList[index][0] = value;
+        //   });
+        //   Navigator.of(context).pop();
+        //   db.updateDataBase();
+        // },
+      );
+    });
+    
   }
   void SaveTask(){
     setState(() {
@@ -83,6 +119,7 @@ class _HomePageState extends State<HomePage> {
             taskCompletad: db.toDoList[index][1], 
             onChanged: (value) => checkBoxChanged(value , index),
             deleteFunction: (context) => deleteTask(index),
+            editFunction: (context) => editTask(index),
             );
         }),
       ),

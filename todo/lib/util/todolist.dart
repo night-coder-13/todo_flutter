@@ -7,6 +7,7 @@ class ToDoList extends StatelessWidget {
   final bool taskCompletad;
   Function(bool?)? onChanged;
   Function(BuildContext)? deleteFunction;
+  Function(BuildContext)? editFunction;
 
   ToDoList ({
     super.key, 
@@ -14,6 +15,7 @@ class ToDoList extends StatelessWidget {
     required this.taskCompletad,
     required this.onChanged,
     required this.deleteFunction,
+    required this.editFunction,
   });
 
   @override
@@ -21,13 +23,24 @@ class ToDoList extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Slidable(
+        startActionPane: ActionPane(
+          motion: StretchMotion(),
+          children: [
+            SlidableAction(
+              onPressed: editFunction,
+              icon: Icons.edit,
+              backgroundColor: Colors.blue.shade400,
+              borderRadius: BorderRadius.circular(8),
+          )
+          ]
+        ),
         endActionPane: ActionPane(
           motion: StretchMotion(),
           children: [
             SlidableAction(
               onPressed: deleteFunction,
               icon: Icons.delete,
-              backgroundColor: Colors.red.shade300,
+              backgroundColor: Colors.red.shade400,
               borderRadius: BorderRadius.circular(8),
           )
           ]
