@@ -24,17 +24,21 @@ class ToDoList extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Slidable(
         startActionPane: ActionPane(
+          extentRatio: 0.4,
           motion: StretchMotion(),
           children: [
             SlidableAction(
               onPressed: editFunction,
               icon: Icons.edit,
+              foregroundColor: Colors.white,
               backgroundColor: Colors.blue.shade400,
               borderRadius: BorderRadius.circular(8),
+              
           )
           ]
         ),
         endActionPane: ActionPane(
+          extentRatio: 0.4,
           motion: StretchMotion(),
           children: [
             SlidableAction(

@@ -46,7 +46,7 @@ class DialogBox extends StatelessWidget {
 }
 class DialogEdit extends StatelessWidget {
   final controller;
-  Function(ValueGetter) onSaved;
+  VoidCallback onSaved;
   VoidCallback onCancel;
 
   DialogEdit({super.key ,
@@ -69,12 +69,13 @@ class DialogEdit extends StatelessWidget {
                   border: OutlineInputBorder(),
                   hintText: 'Edit task',
                 ),
+                
               ),
               SizedBox(height: 15.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  MyButton(text: 'Save', onPressed: onSaved(() => '') , color: Colors.purple,),
+                  MyButton(text: 'Save', onPressed: onSaved , color: Colors.purple,),
                   SizedBox(width: 8,),
                   MyButton(text: 'Cancel', onPressed: onCancel , color: Colors.purple.shade400,),
                 ],

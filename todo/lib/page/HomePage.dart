@@ -54,29 +54,20 @@ class _HomePageState extends State<HomePage> {
     });
     
   }
-  void edit( int index ,String value){
-   
-          setState(() {
-            db.toDoList[index][0] = value;
-          });
-          Navigator.of(context).pop();
-          db.updateDataBase();
-       
-    
-  }
+  
   void editTask(int index){
     showDialog(context: context, builder: (context){
       return DialogEdit(
         controller: _controller,
         onCancel: () => Navigator.of(context).pop() ,
-        onSaved: (context)=> edit(index , _controller.text),
-        // onSaved: (value){
-        //   setState(() {
-        //     db.toDoList[index][0] = value;
-        //   });
-        //   Navigator.of(context).pop();
-        //   db.updateDataBase();
-        // },
+        onSaved: (){
+          setState(() {
+            db.toDoList[index][0] = _controller.text;
+            _controller.text = '';
+          });
+          Navigator.of(context).pop();
+          db.updateDataBase();
+        },
       );
     });
     
